@@ -3,18 +3,23 @@
 namespace Kata;
 
 use RuntimeException;
+use SplObjectStorage;
 
 class BingoBoard
 {
     /** @var Cell[][] */
     private array $oldCells;
+    /** @var array<Coordinate,Cell> */
+    private array $cells;
 
     public function __construct(int $aWidth, int $aHeight)
     {
         $this->oldCells = [];
+        $this->cells = [];
         for ($j = 0; $j < $aWidth; $j++) {
             for ($i = 0; $i < $aHeight; $i++) {
                 $this->oldCells[$j][$i] = new Cell(null, false);
+                $this->cells[(string) new Coordinate($j, $i)] = new Cell(null, false);
             }
         }
     }
@@ -30,6 +35,7 @@ class BingoBoard
         }
 
         $this->oldCells[$x][$y]->setValue($value);
+        $this->cells[(string) new Coordinate($x, $y)]->setValue($value);
     }
 
     public function markCell(int $x, int $y): void
@@ -38,6 +44,7 @@ class BingoBoard
             throw new RuntimeException("board not initialized");
         }
         $this->oldCells[$x][$y]->mark();
+        $this->cells[(string) new Coordinate($x, $y)]->mark();
     }
 
     public function is_marked(int $x, int $y): bool
