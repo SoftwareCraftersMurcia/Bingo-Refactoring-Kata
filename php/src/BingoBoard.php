@@ -6,7 +6,6 @@ use RuntimeException;
 
 class BingoBoard
 {
-
     /** @var array<string,Cell> */
     private array $cells;
 
@@ -29,7 +28,7 @@ class BingoBoard
             }
         }
 
-        $this->cells[(string)$coordinate]->setValue($value);
+        $this->cellAt($coordinate)->setValue($value);
     }
 
     public function markCell(Coordinate $coordinate): void
@@ -37,12 +36,12 @@ class BingoBoard
         if (!$this->isInitialized()) {
             throw new RuntimeException("board not initialized");
         }
-        $this->cells[(string)$coordinate]->mark();
+        $this->cellAt($coordinate)->mark();
     }
 
     public function isMarked(Coordinate $coordinate): bool
     {
-        return $this->cells[(string)$coordinate]->isMarked();
+        return $this->cellAt($coordinate)->isMarked();
     }
 
     public function isInitialized(): bool
@@ -53,5 +52,10 @@ class BingoBoard
             }
         }
         return true;
+    }
+
+    private function cellAt(Coordinate $coordinate): Cell
+    {
+        return $this->cells[(string)$coordinate];
     }
 }
