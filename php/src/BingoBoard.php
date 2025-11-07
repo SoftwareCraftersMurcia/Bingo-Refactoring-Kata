@@ -6,16 +6,18 @@ use RuntimeException;
 
 class BingoBoard
 {
+    /** @var array[int] */
     private array $cells;
+    /** @var array[bool] */
     private array $marked;
 
-    public function __construct($aWidth, $aHeight)
+    public function __construct(int $aWidth, int $aHeight)
     {
         $this->cells = array_fill(0, $aWidth, array_fill(0, $aHeight, null));
         $this->marked = array_fill(0, $aHeight, array_fill(0, $aHeight, false));
     }
 
-    public function defineCell($x, $y, $value): void
+    public function defineCell(int $x, int $y, string $value): void
     {
         if ($this->cells[$x][$y] !== null) {
             throw new RuntimeException("cell already defined");
@@ -32,7 +34,7 @@ class BingoBoard
         $this->cells[$x][$y] = $value;
     }
 
-    public function markCell($x, $y): void
+    public function markCell(int $x, int $y): void
     {
         if (!$this->isInitialized()) {
             throw new RuntimeException("board not initialized");
@@ -40,7 +42,7 @@ class BingoBoard
         $this->marked[$x][$y] = true;
     }
 
-    public function is_marked($x, $y): bool
+    public function is_marked(int $x, int $y): bool
     {
         return $this->marked[$x][$y];
     }
