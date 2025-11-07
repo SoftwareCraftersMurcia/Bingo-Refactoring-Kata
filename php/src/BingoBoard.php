@@ -21,10 +21,10 @@ class BingoBoard
             throw new RuntimeException("cell already defined");
         }
 
-        foreach ($this->cells as $c => $cValue) {
-            foreach ($cValue as $r => $rValue) {
-                if ($value === $rValue) {
-                    throw new RuntimeException("$value already present at $c,$r");
+        foreach ($this->cells as $numberOfColumn => $colum) {
+            foreach ($colum as $numberOfRow => $row) {
+                if ($value === $row) {
+                    throw new RuntimeException("$value already present at $numberOfColumn,$numberOfRow");
                 }
             }
         }
