@@ -10,11 +10,15 @@ class BingoBoard
     private array $oldCells;
     /** @var array[bool] */
     private array $marked;
+    /** @var array[Cell] */
+    private array $cells;
 
     public function __construct(int $aWidth, int $aHeight)
     {
         $this->oldCells = array_fill(0, $aWidth, array_fill(0, $aHeight, null));
         $this->marked = array_fill(0, $aHeight, array_fill(0, $aHeight, false));
+        $this->cells = array_fill(0, $aWidth, array_fill(0, $aHeight, new Cell()));
+
     }
 
     public function defineCell(int $x, int $y, string $value): void
