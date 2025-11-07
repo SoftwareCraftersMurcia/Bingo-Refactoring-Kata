@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Kata;
 
-final class Cell {
-
+final class Cell
+{
     public function __construct(
-        private bool $marked,
-    ) {}
+        public string $value,
+        public bool $marked = false,
+    ) {
+    }
 }
