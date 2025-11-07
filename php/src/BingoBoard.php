@@ -25,13 +25,13 @@ class BingoBoard
 
     public function defineCell(int $x, int $y, string $value): void
     {
-        if ($this->oldCells[$x][$y] !== null) {
+        if ($this->cells[$x][$y]->value !== null) {
             throw new RuntimeException("cell already defined");
         }
 
-        foreach ($this->oldCells as $numberOfColumn => $colum) {
+        foreach ($this->cells as $numberOfColumn => $colum) {
             foreach ($colum as $numberOfRow => $row) {
-                if ($value === $row) {
+                if ($value === $row->value) {
                     throw new RuntimeException("$value already present at $numberOfColumn,$numberOfRow");
                 }
             }
