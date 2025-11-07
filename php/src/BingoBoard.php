@@ -18,9 +18,9 @@ class BingoBoard
         $this->marked = array_fill(0, $aHeight, array_fill(0, $aHeight, false));
     }
 
-    public function defineCell(int $x, int $y, string $value): void
+    public function defineCell(int $positionX, int $positionY, string $value): void
     {
-        if ($this->cells[$x][$y] !== null) {
+        if ($this->cells[$positionX][$positionY] !== null) {
             throw new RuntimeException("cell already defined");
         }
 
@@ -32,7 +32,7 @@ class BingoBoard
             }
         }
 
-        $this->cells[$x][$y] = $value;
+        $this->cells[$positionX][$positionY] = $value;
     }
 
     public function markCell(int $x, int $y): void
