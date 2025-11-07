@@ -37,12 +37,7 @@ class BingoBoard
 
     public function isInitialized(): bool
     {
-        foreach ($this->cells as $cell) {
-            if (!$cell->isInitialized()) {
-                return false;
-            }
-        }
-        return true;
+        return array_all($this->cells, fn(Cell $cell) => $cell->isInitialized());
     }
 
     private function cellAt(Coordinate $coordinate): Cell
