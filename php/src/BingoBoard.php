@@ -52,7 +52,7 @@ class BingoBoard
 
     public function isInitialized(): bool
     {
-        foreach ($this->cells as $row) {
+        foreach ($this->cellsList as $row) {
             foreach ($row as $col) {
                 if ($col === null) {
                     return false;
@@ -73,7 +73,7 @@ class BingoBoard
     {
         foreach ($this->cells as $column => $columnValue) {
             foreach ($columnValue as $row => $rowValue) {
-                if ($value === $rowValue) {
+                if ((new Cell($value))->equals(new Cell($rowValue))) {
                     throw new RuntimeException("$value already present at $column,$row");
                 }
             }

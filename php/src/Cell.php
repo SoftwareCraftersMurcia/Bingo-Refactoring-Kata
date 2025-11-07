@@ -21,4 +21,10 @@ final class Cell
     {
         return $this->marked;
     }
+
+    public function equals(Cell $other): bool
+    {
+
+        return $this->value === $other->value;
+    }
 }
