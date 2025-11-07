@@ -27,9 +27,6 @@ class BingoBoard
 
     public function markCell(Coordinate $coordinate): void
     {
-        if (!$this->isInitialized()) {
-            throw new RuntimeException("board not initialized");
-        }
         $this->cellAt($coordinate)->mark();
     }
 

@@ -26,6 +26,9 @@ final class Cell
 
     public function mark(): void
     {
+        if (!$this->isInitialized()) {
+            throw new RuntimeException("cell not initialized");
+        }
         $this->marked = true;
     }
 
