@@ -8,6 +8,9 @@ use RuntimeException;
 
 class BingoBoard
 {
+    /** @var list<list<Cell>> */
+    private array $cellList;
+
     /** @var list<list<string|null>> */
     private array $cells;
 
@@ -18,10 +21,14 @@ class BingoBoard
     {
         $this->cells = array_fill(0, $width, array_fill(0, $height, null));
         $this->marked = array_fill(0, $height, array_fill(0, $height, false));
+
+        $this->cellsList = array_fill(0, $width, array_fill(0, $height, new Cell(false)));
     }
 
     public function defineCell(int $positionX, int $positionY, string $value): void
     {
+        // $this->cellList[$positionX][$positionY]->defineCell($value);
+
         $this->ensureEmptyCell($positionX,$positionY);
 
         $this->ensureValueIsNotAlreadyPresent($value);
