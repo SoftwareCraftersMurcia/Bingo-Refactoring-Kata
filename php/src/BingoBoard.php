@@ -8,14 +8,16 @@ use RuntimeException;
 
 class BingoBoard
 {
+    /** @var list<list<string|null>> */
     private array $cells;
 
+    /** @var list<list<bool>> */
     private array $marked;
 
-    public function __construct(int $aWidth, int $aHeight)
+    public function __construct(int $width, int $height)
     {
-        $this->cells = array_fill(0, $aWidth, array_fill(0, $aHeight, null));
-        $this->marked = array_fill(0, $aHeight, array_fill(0, $aHeight, false));
+        $this->cells = array_fill(0, $width, array_fill(0, $height, null));
+        $this->marked = array_fill(0, $height, array_fill(0, $height, false));
     }
 
     public function defineCell(int $positionX, int $positionY, string $value): void
