@@ -62,7 +62,8 @@ class BingoTest extends TestCase
 
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessageMatches('/not initialized/');
-        $this->board->markCell(0, 0);
+        $bingoBoard = $this->board;
+        $bingoBoard->markCell(new Coordinate(0, 0));
     }
 
     public function testWhenAllCellGetsMarkedItIsMarked(): void
@@ -70,9 +71,9 @@ class BingoTest extends TestCase
         $anyValue = "42";
         $this->board = new BingoBoard(1, 1);
         $this->board->defineCell(0, 0, $anyValue);
-        $this->board->markCell(0, 0);
+        $bingoBoard1 = $this->board;
+        $bingoBoard1->markCell(new Coordinate(0, 0));
         $bingoBoard = $this->board;
-        $coordinate = new Coordinate(0, 0);
-        $this->assertTrue($bingoBoard->isMarked($coordinate));
+        $this->assertTrue($bingoBoard->isMarked(new Coordinate(0, 0)));
     }
 }

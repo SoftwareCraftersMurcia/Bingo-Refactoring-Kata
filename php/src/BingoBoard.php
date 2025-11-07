@@ -32,12 +32,12 @@ class BingoBoard
         $this->cells[(string)new Coordinate($x, $y)]->setValue($value);
     }
 
-    public function markCell(int $x, int $y): void
+    public function markCell(Coordinate $coordinate): void
     {
         if (!$this->isInitialized()) {
             throw new RuntimeException("board not initialized");
         }
-        $this->cells[(string)new Coordinate($x, $y)]->mark();
+        $this->cells[(string)$coordinate]->mark();
     }
 
     public function isMarked(Coordinate $coordinate): bool
