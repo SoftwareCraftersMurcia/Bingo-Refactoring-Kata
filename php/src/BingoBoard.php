@@ -52,9 +52,9 @@ class BingoBoard
 
     public function isInitialized(): bool
     {
-        foreach ($this->oldCells as $row) {
+        foreach ($this->cells as $row) {
             foreach ($row as $col) {
-                if ($col === null) {
+                if ($col->value === null) {
                     return false;
                 }
             }
