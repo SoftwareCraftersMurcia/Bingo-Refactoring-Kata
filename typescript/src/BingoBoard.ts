@@ -1,9 +1,22 @@
+class Cell {
+  public readonly marked: boolean;
+  public readonly value: string;
+  constructor (value: string, marked: boolean){
+    this.value = value
+    this.marked = marked
+  }
+}
+
 export class BingoBoard {
+  private readonly theCells: (Cell | null)[][];
   private readonly cells: (string | null)[][];
   private readonly marked: boolean[][];
 
   constructor(width: number, height: number) {
     this.cells = Array.from({ length: width }, () =>
+      Array.from({ length: height }, () => null)
+    );
+    this.theCells = Array.from({ length: width }, () =>
       Array.from({ length: height }, () => null)
     );
     this.marked = Array.from({ length: width }, () =>
@@ -25,6 +38,7 @@ export class BingoBoard {
     }
 
     this.cells[x][y] = value;
+    this.theCells[x][y] = new Cell(value, false);
   }
 
   markCell(x: number, y: number): void {
