@@ -10,14 +10,14 @@ class BingoBoard
     private array $oldCells;
     /** @var array[bool] */
     private array $marked;
-    /** @var array[Cell] */
+    /** @var Cell[][] */
     private array $cells;
 
     public function __construct(int $aWidth, int $aHeight)
     {
         $this->oldCells = array_fill(0, $aWidth, array_fill(0, $aHeight, null));
         $this->marked = array_fill(0, $aHeight, array_fill(0, $aHeight, false));
-        $this->cells = array_fill(0, $aWidth, array_fill(0, $aHeight, new Cell()));
+        $this->cells = array_fill(0, $aWidth, array_fill(0, $aHeight, new Cell(null, false)));
 
     }
 
@@ -36,6 +36,7 @@ class BingoBoard
         }
 
         $this->oldCells[$x][$y] = $value;
+        $this->cells[$x][$y]->value = $value;
     }
 
     public function markCell(int $x, int $y): void
@@ -44,6 +45,8 @@ class BingoBoard
             throw new RuntimeException("board not initialized");
         }
         $this->marked[$x][$y] = true;
+        $this->cells[$x][$y]->marked = true;
+
     }
 
     public function is_marked(int $x, int $y): bool

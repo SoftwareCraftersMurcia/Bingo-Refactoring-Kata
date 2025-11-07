@@ -5,8 +5,7 @@ namespace Kata;
 
 final class Cell
 {
-
-    public function __construct()
+    public function __construct(public ?string $value, public bool $marked)
     {
     }
 }
