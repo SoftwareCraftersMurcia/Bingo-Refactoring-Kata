@@ -41,7 +41,7 @@ class BingoBoard
         if (!$this->isInitialized()) {
             throw new RuntimeException("board not initialized");
         }
-        $this->cells[$x][$y]->marked = true;
+        $this->cells[$x][$y]->mark();
     }
 
     public function is_marked(int $x, int $y): bool
