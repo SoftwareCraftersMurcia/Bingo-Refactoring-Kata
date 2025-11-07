@@ -22,9 +22,8 @@ final class Cell
         return $this->marked;
     }
 
-    public function equals(Cell $other): bool
+    public function equals(?Cell $other): bool
     {
-
-        return $this->value === $other->value;
+        return $this->value === $other?->value;
     }
 }

@@ -73,6 +73,9 @@ class BingoBoard
     {
         foreach ($this->cells as $column => $columnValue) {
             foreach ($columnValue as $row => $rowValue) {
+                if ($rowValue === null) {
+                    continue;
+                }
                 if ((new Cell($value))->equals(new Cell($rowValue))) {
                     throw new RuntimeException("$value already present at $column,$row");
                 }
