@@ -21,13 +21,7 @@ class BingoBoard
 
     public function defineCell(Coordinate $coordinate, string $value): void
     {
-        foreach ($this->cells as $strCoordinate => $cell) {
-            $coordinate1 = Coordinate::fromString($strCoordinate);
-            if ($cell->value === $value && $coordinate1 != $coordinate) {
-                throw new RuntimeException("$value already present at $coordinate1->column,$coordinate1->row");
-            }
-        }
-
+        $this->ensureValueNotPresent($value);
         $this->cellAt($coordinate)->setValue($value);
     }
 
@@ -57,5 +51,15 @@ class BingoBoard
     private function cellAt(Coordinate $coordinate): Cell
     {
         return $this->cells[(string)$coordinate];
+    }
+
+    private function ensureValueNotPresent(string $value): void
+    {
+        foreach ($this->cells as $strCoordinate => $cell) {
+            if ($cell->value === $value) {
+                $coordinate1 = Coordinate::fromString($strCoordinate);
+                throw new RuntimeException("$value already present at $coordinate1->column,$coordinate1->row");
+            }
+        }
     }
 }
