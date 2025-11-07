@@ -7,23 +7,23 @@ use RuntimeException;
 class BingoBoard
 {
     /** @var array[int] */
-    private array $cells;
+    private array $oldCells;
     /** @var array[bool] */
     private array $marked;
 
     public function __construct(int $aWidth, int $aHeight)
     {
-        $this->cells = array_fill(0, $aWidth, array_fill(0, $aHeight, null));
+        $this->oldCells = array_fill(0, $aWidth, array_fill(0, $aHeight, null));
         $this->marked = array_fill(0, $aHeight, array_fill(0, $aHeight, false));
     }
 
     public function defineCell(int $x, int $y, string $value): void
     {
-        if ($this->cells[$x][$y] !== null) {
+        if ($this->oldCells[$x][$y] !== null) {
             throw new RuntimeException("cell already defined");
         }
 
-        foreach ($this->cells as $numberOfColumn => $colum) {
+        foreach ($this->oldCells as $numberOfColumn => $colum) {
             foreach ($colum as $numberOfRow => $row) {
                 if ($value === $row) {
                     throw new RuntimeException("$value already present at $numberOfColumn,$numberOfRow");
@@ -31,7 +31,7 @@ class BingoBoard
             }
         }
 
-        $this->cells[$x][$y] = $value;
+        $this->oldCells[$x][$y] = $value;
     }
 
     public function markCell(int $x, int $y): void
@@ -49,7 +49,7 @@ class BingoBoard
 
     public function isInitialized(): bool
     {
-        foreach ($this->cells as $row) {
+        foreach ($this->oldCells as $row) {
             foreach ($row as $col) {
                 if ($col === null) {
                     return false;
