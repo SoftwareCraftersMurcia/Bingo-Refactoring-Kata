@@ -3,6 +3,7 @@
 namespace KataTest;
 
 use Kata\BingoBoard;
+use Kata\Coordinate;
 use PHPUnit\Framework\TestCase;
 
 class BingoTest extends TestCase
@@ -70,6 +71,8 @@ class BingoTest extends TestCase
         $this->board = new BingoBoard(1, 1);
         $this->board->defineCell(0, 0, $anyValue);
         $this->board->markCell(0, 0);
-        $this->assertTrue($this->board->is_marked(0, 0));
+        $bingoBoard = $this->board;
+        $coordinate = new Coordinate(0, 0);
+        $this->assertTrue($bingoBoard->isMarked($coordinate));
     }
 }

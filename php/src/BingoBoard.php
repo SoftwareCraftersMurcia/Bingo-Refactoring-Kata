@@ -40,9 +40,9 @@ class BingoBoard
         $this->cells[(string)new Coordinate($x, $y)]->mark();
     }
 
-    public function is_marked(int $x, int $y): bool
+    public function isMarked(Coordinate $coordinate): bool
     {
-        return $this->cells[(string)new Coordinate($x, $y)]->isMarked();
+        return $this->cells[(string)$coordinate]->isMarked();
     }
 
     public function isInitialized(): bool
