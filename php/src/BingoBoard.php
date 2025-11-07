@@ -7,21 +7,21 @@ use RuntimeException;
 class BingoBoard
 {
     /** @var Cell[][] */
-    private array $cells;
+    private array $oldCells;
 
     public function __construct(int $aWidth, int $aHeight)
     {
-        $this->cells = [];
+        $this->oldCells = [];
         for ($j = 0; $j < $aWidth; $j++) {
             for ($i = 0; $i < $aHeight; $i++) {
-                $this->cells[$j][$i] = new Cell(null, false);
+                $this->oldCells[$j][$i] = new Cell(null, false);
             }
         }
     }
 
     public function defineCell(int $x, int $y, string $value): void
     {
-        foreach ($this->cells as $numberOfColumn => $colum) {
+        foreach ($this->oldCells as $numberOfColumn => $colum) {
             foreach ($colum as $numberOfRow => $row) {
                 if ($value === $row->value && $x !== $numberOfColumn && $y !== $numberOfRow) {
                     throw new RuntimeException("$value already present at $numberOfColumn,$numberOfRow");
@@ -29,7 +29,7 @@ class BingoBoard
             }
         }
 
-        $this->cells[$x][$y]->setValue($value);
+        $this->oldCells[$x][$y]->setValue($value);
     }
 
     public function markCell(int $x, int $y): void
@@ -37,17 +37,17 @@ class BingoBoard
         if (!$this->isInitialized()) {
             throw new RuntimeException("board not initialized");
         }
-        $this->cells[$x][$y]->mark();
+        $this->oldCells[$x][$y]->mark();
     }
 
     public function is_marked(int $x, int $y): bool
     {
-        return $this->cells[$x][$y]->isMarked();
+        return $this->oldCells[$x][$y]->isMarked();
     }
 
     public function isInitialized(): bool
     {
-        foreach ($this->cells as $row) {
+        foreach ($this->oldCells as $row) {
             foreach ($row as $col) {
                 if ($col->value === null) {
                     return false;
