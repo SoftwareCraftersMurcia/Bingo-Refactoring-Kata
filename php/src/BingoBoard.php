@@ -24,13 +24,7 @@ class BingoBoard
     {
         $this->ensureEmptyCell($positionX,$positionY);
 
-        foreach ($this->cells as $c => $cValue) {
-            foreach ($cValue as $r => $rValue) {
-                if ($value === $rValue) {
-                    throw new RuntimeException("$value already present at $c,$r");
-                }
-            }
-        }
+        $this->ensureValueIsNotAlreadyPresent($value);
 
         $this->cells[$positionX][$positionY] = $value;
     }
@@ -40,6 +34,7 @@ class BingoBoard
         if (!$this->isInitialized()) {
             throw new RuntimeException("board not initialized");
         }
+
         $this->marked[$x][$y] = true;
     }
 
@@ -64,6 +59,17 @@ class BingoBoard
     {
         if ($this->cells[$positionX][$positionY] !== null) {
             throw new RuntimeException("cell already defined");
+        }
+    }
+
+    private function ensureValueIsNotAlreadyPresent(string $value): void
+    {
+        foreach ($this->cells as $columns => $columnValue) {
+            foreach ($columnValue as $row => $rowValue) {
+                if ($value === $rowValue) {
+                    throw new RuntimeException("$value already present at $column,$row");
+                }
+            }
         }
     }
 }
