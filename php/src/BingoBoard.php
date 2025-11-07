@@ -37,7 +37,7 @@ class BingoBoard
 
     public function isInitialized(): bool
     {
-        return array_all($this->cells, fn(Cell $cell) => $cell->isInitialized());
+        return array_all($this->cells, static fn(Cell $cell) => $cell->isInitialized());
     }
 
     private function cellAt(Coordinate $coordinate): Cell
@@ -47,11 +47,9 @@ class BingoBoard
 
     private function ensureValueNotPresent(string $value): void
     {
-        foreach ($this->cells as $strCoordinate => $cell) {
-            if ($cell->contains($value)) {
-                $coordinate1 = Coordinate::fromString($strCoordinate);
-                throw new RuntimeException("$value already present at $coordinate1->column,$coordinate1->row");
-            }
+        $strCoordinate = array_find_key($this->cells, static fn(Cell $cell) => $cell->contains($value));
+        if ($strCoordinate !== null) {
+            throw new RuntimeException("$value already present at $strCoordinate");
         }
     }
 }
