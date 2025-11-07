@@ -9,6 +9,11 @@ final class Cell
     {
     }
 
+    public function setValue(string $value): void
+    {
+        $this->value = $value;
+    }
+
     public function isMarked(): bool
     {
         return $this->marked;

@@ -33,7 +33,7 @@ class BingoBoard
             }
         }
 
-        $this->cells[$x][$y]->value = $value;
+        $this->cells[$x][$y]->setValue($value);
     }
 
     public function markCell(int $x, int $y): void
