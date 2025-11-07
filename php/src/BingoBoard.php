@@ -6,14 +6,11 @@ use RuntimeException;
 
 class BingoBoard
 {
-    /** @var array[int] */
-    private array $oldCells;
     /** @var Cell[][] */
     private array $cells;
 
     public function __construct(int $aWidth, int $aHeight)
     {
-        $this->oldCells = array_fill(0, $aWidth, array_fill(0, $aHeight, null));
         $cells = [];
         for ($j = 0; $j < $aWidth; $j++) {
             for ($i = 0; $i < $aHeight; $i++) {
@@ -37,7 +34,6 @@ class BingoBoard
             }
         }
 
-        $this->oldCells[$x][$y] = $value;
         $this->cells[$x][$y]->value = $value;
     }
 
