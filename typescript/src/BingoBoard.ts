@@ -9,35 +9,26 @@ class Cell {
 
 export class BingoBoard {
   private readonly theCells: Cell[][];
-  private readonly cells: (string | null)[][];
-  private readonly marked: boolean[][];
 
   constructor(width: number, height: number) {
-    this.cells = Array.from({ length: width }, () =>
-      Array.from({ length: height }, () => null)
-    );
-    this.marked = Array.from({ length: width }, () =>
-      Array.from({ length: height }, () => false)
-  );
     this.theCells = Array.from({ length: width }, () =>
       Array.from({ length: height }, () => new Cell(null, false))
     );
   }
 
   defineCell(x: number, y: number, value: string): void {
-    if (this.cells[x][y] !== null) {
+    if (this.theCells[x][y].value !== null) {
       throw new Error("cell already defined");
     }
 
-    for (let c = 0; c < this.cells.length; c++) {
-      for (let r = 0; r < this.cells[c].length; r++) {
-        if (value === this.cells[c][r]) {
+    for (let c = 0; c < this.theCells.length; c++) {
+      for (let r = 0; r < this.theCells[c].length; r++) {
+        if (value === this.theCells[c][r].value) {
           throw new Error(`${value} already present at ${c},${r}`);
         }
       }
     }
 
-    this.cells[x][y] = value;
     this.theCells[x][y] = new Cell(value, false);
   }
 
@@ -45,18 +36,17 @@ export class BingoBoard {
     if (!this.isInitialized()) {
       throw new Error("board not initialized");
     }
-    this.marked[x][y] = true;
     this.theCells[x][y].marked = true;
   }
 
   isMarked(x: number, y: number): boolean {
-    return this.marked[x][y];
+    return this.theCells[x][y].marked;
   }
 
   isInitialized(): boolean {
-    for (const row of this.cells) {
+    for (const row of this.theCells) {
       for (const col of row) {
-        if (col === null) {
+        if (col.value === null) {
           return false;
         }
       }
