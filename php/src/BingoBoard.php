@@ -11,13 +11,12 @@ class BingoBoard
 
     public function __construct(int $aWidth, int $aHeight)
     {
-        $cells = [];
+        $this->cells = [];
         for ($j = 0; $j < $aWidth; $j++) {
             for ($i = 0; $i < $aHeight; $i++) {
-                $cells[$j][$i] = new Cell(null, false);
+                $this->cells[$j][$i] = new Cell(null, false);
             }
         }
-        $this->cells = $cells;
     }
 
     public function defineCell(int $x, int $y, string $value): void
