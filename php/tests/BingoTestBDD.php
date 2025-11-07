@@ -81,7 +81,8 @@ class BingoTestBDD extends TestCase
 
     private function whenCellIsDefined(int $x, int $y, string $value): void
     {
-        $this->board->defineCell($x, $y, $value);
+        $bingoBoard = $this->board;
+        $bingoBoard->defineCell(new Coordinate($x, $y), $value);
     }
 
     private function whenCellIsMarked(int $x, int $y): void

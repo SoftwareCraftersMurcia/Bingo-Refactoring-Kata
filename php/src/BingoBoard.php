@@ -20,16 +20,16 @@ class BingoBoard
         }
     }
 
-    public function defineCell(int $x, int $y, string $value): void
+    public function defineCell(Coordinate $coordinate, string $value): void
     {
-        foreach ($this->cells as $coordinate => $cell) {
-            $coordinate1 = Coordinate::fromString($coordinate);
-            if ($cell->value === $value && $coordinate1->column !== $x && $coordinate1->row !== $y) {
+        foreach ($this->cells as $strCoordinate => $cell) {
+            $coordinate1 = Coordinate::fromString($strCoordinate);
+            if ($cell->value === $value && $coordinate1 != $coordinate) {
                 throw new RuntimeException("$value already present at $coordinate1->column,$coordinate1->row");
             }
         }
 
-        $this->cells[(string)new Coordinate($x, $y)]->setValue($value);
+        $this->cells[(string)$coordinate]->setValue($value);
     }
 
     public function markCell(Coordinate $coordinate): void

@@ -20,7 +20,8 @@ class BingoTest extends TestCase
     {
         $anyValue = "42";
         $this->board = new BingoBoard(1, 1);
-        $this->board->defineCell(0, 0, $anyValue);
+        $bingoBoard = $this->board;
+        $bingoBoard->defineCell(new Coordinate(0, 0), $anyValue);
         $this->assertTrue($this->board->isInitialized());
     }
 
@@ -29,8 +30,10 @@ class BingoTest extends TestCase
         $one = "one, two, three";
         $two = "Bingo cells can contain any text";
         $this->board = new BingoBoard(1, 2);
-        $this->board->defineCell(0, 0, $one);
-        $this->board->defineCell(0, 1, $two);
+        $bingoBoard1 = $this->board;
+        $bingoBoard1->defineCell(new Coordinate(0, 0), $one);
+        $bingoBoard = $this->board;
+        $bingoBoard->defineCell(new Coordinate(0, 1), $two);
         $this->assertTrue($this->board->isInitialized());
     }
 
@@ -38,22 +41,26 @@ class BingoTest extends TestCase
     {
         $anyValue = "42";
         $this->board = new BingoBoard(1, 1);
-        $this->board->defineCell(0, 0, $anyValue);
+        $bingoBoard1 = $this->board;
+        $bingoBoard1->defineCell(new Coordinate(0, 0), $anyValue);
 
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessageMatches('/already defined/');
-        $this->board->defineCell(0, 0, $anyValue);
+        $bingoBoard = $this->board;
+        $bingoBoard->defineCell(new Coordinate(0, 0), $anyValue);
     }
 
     public function testDuplicateCellsAreNotAllowed(): void
     {
         $anyValue = "42";
         $this->board = new BingoBoard(2, 2);
-        $this->board->defineCell(0, 1, $anyValue);
+        $bingoBoard1 = $this->board;
+        $bingoBoard1->defineCell(new Coordinate(0, 1), $anyValue);
 
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessageMatches('/' . preg_quote($anyValue . " already present at 0,1") . '/');
-        $this->board->defineCell(1, 0, $anyValue);
+        $bingoBoard = $this->board;
+        $bingoBoard->defineCell(new Coordinate(1, 0), $anyValue);
     }
 
     public function testANonInitializedBoardCannotBeMarked(): void
@@ -70,7 +77,8 @@ class BingoTest extends TestCase
     {
         $anyValue = "42";
         $this->board = new BingoBoard(1, 1);
-        $this->board->defineCell(0, 0, $anyValue);
+        $bingoBoard2 = $this->board;
+        $bingoBoard2->defineCell(new Coordinate(0, 0), $anyValue);
         $bingoBoard1 = $this->board;
         $bingoBoard1->markCell(new Coordinate(0, 0));
         $bingoBoard = $this->board;
