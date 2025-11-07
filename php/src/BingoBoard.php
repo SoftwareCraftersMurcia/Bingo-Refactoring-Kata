@@ -14,8 +14,13 @@ class BingoBoard
     public function __construct(int $aWidth, int $aHeight)
     {
         $this->oldCells = array_fill(0, $aWidth, array_fill(0, $aHeight, null));
-        $this->cells = array_fill(0, $aWidth, array_fill(0, $aHeight, new Cell(null, false)));
-
+        $cells = [];
+        for ($j = 0; $j < $aWidth; $j++) {
+            for ($i = 0; $i < $aHeight; $i++) {
+                $cells[$j][$i] = new Cell(null, false);
+            }
+        }
+        $this->cells = $cells;
     }
 
     public function defineCell(int $x, int $y, string $value): void
@@ -42,7 +47,6 @@ class BingoBoard
             throw new RuntimeException("board not initialized");
         }
         $this->cells[$x][$y]->marked = true;
-
     }
 
     public function is_marked(int $x, int $y): bool
