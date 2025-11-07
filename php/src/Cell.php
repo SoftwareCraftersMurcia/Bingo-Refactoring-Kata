@@ -11,4 +11,9 @@ final class Cell
         public bool $marked = false,
     ) {
     }
+
+    public function mark(): void
+    {
+        $this->marked = true;
+    }
 }

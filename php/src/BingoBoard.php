@@ -42,6 +42,7 @@ class BingoBoard
         }
 
         $this->marked[$x][$y] = true;
+        $this->cellList[$x][$y]->mark();
     }
 
     public function is_marked(int $x, int $y): bool
