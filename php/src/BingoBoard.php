@@ -47,7 +47,7 @@ class BingoBoard
 
     public function is_marked(int $x, int $y): bool
     {
-        return $this->marked[$x][$y];
+        return $this->cellList[$x][$y]->isMarked();
     }
 
     public function isInitialized(): bool

@@ -16,4 +16,9 @@ final class Cell
     {
         $this->marked = true;
     }
+
+    public function isMarked(): bool
+    {
+        return $this->marked;
+    }
 }
