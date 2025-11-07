@@ -28,4 +28,9 @@ final class Cell
     {
         $this->marked = true;
     }
+
+    public function isInitialized(): bool
+    {
+        return $this->value !== null;
+    }
 }
