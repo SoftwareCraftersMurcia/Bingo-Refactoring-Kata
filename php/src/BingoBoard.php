@@ -22,9 +22,7 @@ class BingoBoard
 
     public function defineCell(int $positionX, int $positionY, string $value): void
     {
-        if ($this->cells[$positionX][$positionY] !== null) {
-            throw new RuntimeException("cell already defined");
-        }
+        $this->ensureEmptyCell($positionX,$positionY);
 
         foreach ($this->cells as $c => $cValue) {
             foreach ($cValue as $r => $rValue) {
@@ -60,5 +58,12 @@ class BingoBoard
             }
         }
         return true;
+    }
+
+    private function ensureEmptyCell(int $positionX, int $positionY): void
+    {
+        if ($this->cells[$positionX][$positionY] !== null) {
+            throw new RuntimeException("cell already defined");
+        }
     }
 }
