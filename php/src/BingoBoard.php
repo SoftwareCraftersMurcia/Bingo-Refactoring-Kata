@@ -6,8 +6,8 @@ use RuntimeException;
 
 class BingoBoard
 {
-    private $cells;
-    private $marked;
+    private array $cells;
+    private array $marked;
 
     public function __construct($aWidth, $aHeight)
     {
@@ -15,15 +15,15 @@ class BingoBoard
         $this->marked = array_fill(0, $aHeight, array_fill(0, $aHeight, false));
     }
 
-    public function defineCell($x, $y, $value)
+    public function defineCell($x, $y, $value): void
     {
         if ($this->cells[$x][$y] !== null) {
             throw new RuntimeException("cell already defined");
         }
 
-        for ($c = 0; $c < count($this->cells); $c++) {
-            for ($r = 0; $r < count($this->cells[$c]); $r++) {
-                if ($value === $this->cells[$c][$r]) {
+        foreach ($this->cells as $c => $cValue) {
+            foreach ($cValue as $r => $rValue) {
+                if ($value === $rValue) {
                     throw new RuntimeException("$value already present at $c,$r");
                 }
             }
@@ -32,12 +32,12 @@ class BingoBoard
         $this->cells[$x][$y] = $value;
     }
 
-    public function markCell($x, $y)
+    public function markCell($x, $y): void
     {
         if (!$this->isInitialized()) {
             throw new RuntimeException("board not initialized");
         }
-        $this->marked[$x][$y] = !false;
+        $this->marked[$x][$y] = true;
     }
 
     public function is_marked($x, $y): bool
@@ -45,7 +45,7 @@ class BingoBoard
         return $this->marked[$x][$y];
     }
 
-    public function isInitialized()
+    public function isInitialized(): bool
     {
         foreach ($this->cells as $row) {
             foreach ($row as $col) {
