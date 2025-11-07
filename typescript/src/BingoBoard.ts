@@ -7,6 +7,16 @@ class Cell {
   }
 }
 
+class Coordinate {
+  public readonly x: number;
+  public readonly y: number;
+
+  constructor(x: number, y: number){
+    this.x = x;
+    this.y = y;
+  }
+}
+
 export class BingoBoard {
   private readonly theCells: Cell[][];
 
@@ -16,8 +26,8 @@ export class BingoBoard {
     );
   }
 
-  defineCell(x: number, y: number, value: string): void {
-    if (this.theCells[x][y].value !== null) {
+  defineCellAt(position: Coordinate, value: string): void {
+    if (this.theCells[position.x][position.y].value !== null) {
       throw new Error("cell already defined");
     }
 
@@ -29,7 +39,11 @@ export class BingoBoard {
       }
     }
 
-    this.theCells[x][y] = new Cell(value, false);
+    this.theCells[position.x][position.y] = new Cell(value, false);
+  }
+
+  defineCell(x: number, y: number, value: string): void {
+    this.defineCellAt(new Coordinate(x,y), value);
   }
 
   markCell(x: number, y: number): void {
@@ -40,7 +54,10 @@ export class BingoBoard {
   }
 
   isMarked(x: number, y: number): boolean {
-    return this.theCells[x][y].marked;
+    return this.isCellMarked(new Coordinate(x,y))
+  }
+  isCellMarked(position: Coordinate): boolean {
+    return this.theCells[position.x][position.y].marked;
   }
 
   isInitialized(): boolean {
