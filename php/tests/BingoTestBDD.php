@@ -52,7 +52,7 @@ class BingoTestBDD extends TestCase
         $this->whenCellIsDefined(0, 1, $anyValue);
 
         $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessageMatches('/' . preg_quote($anyValue . " already present at 0,1") . '/');
+        $this->expectExceptionMessageMatches("/$anyValue already present at 0,1/");
         $this->whenCellIsDefined(1, 0, $anyValue);
     }
 

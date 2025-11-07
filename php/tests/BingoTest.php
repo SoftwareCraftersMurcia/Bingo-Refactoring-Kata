@@ -58,7 +58,7 @@ class BingoTest extends TestCase
         $bingoBoard1->defineCell(new Coordinate(0, 1), $anyValue);
 
         $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessageMatches('/' . preg_quote($anyValue . " already present at 0,1") . '/');
+        $this->expectExceptionMessageMatches("/$anyValue already present at 0,1/");
         $bingoBoard = $this->board;
         $bingoBoard->defineCell(new Coordinate(1, 0), $anyValue);
     }
