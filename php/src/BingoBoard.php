@@ -64,7 +64,7 @@ class BingoBoard
 
     private function ensureValueIsNotAlreadyPresent(string $value): void
     {
-        foreach ($this->cells as $columns => $columnValue) {
+        foreach ($this->cells as $column => $columnValue) {
             foreach ($columnValue as $row => $rowValue) {
                 if ($value === $rowValue) {
                     throw new RuntimeException("$value already present at $column,$row");
