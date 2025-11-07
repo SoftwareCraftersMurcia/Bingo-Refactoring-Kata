@@ -14,7 +14,7 @@ class BingoBoard
         $this->cells = [];
         for ($j = 0; $j < $aWidth; $j++) {
             for ($i = 0; $i < $aHeight; $i++) {
-                $this->cells[(string)new Coordinate($j, $i)] = new Cell(null, false);
+                $this->cells[(string)new Coordinate($j, $i)] = new Cell();
             }
         }
     }
@@ -48,7 +48,7 @@ class BingoBoard
     private function ensureValueNotPresent(string $value): void
     {
         foreach ($this->cells as $strCoordinate => $cell) {
-            if ($cell->value === $value) {
+            if ($cell->contains($value)) {
                 $coordinate1 = Coordinate::fromString($strCoordinate);
                 throw new RuntimeException("$value already present at $coordinate1->column,$coordinate1->row");
             }

@@ -7,7 +7,7 @@ use RuntimeException;
 
 final class Cell
 {
-    public function __construct(public ?string $value, private bool $marked)
+    public function __construct(private ?string $value = null, private bool $marked = false)
     {
     }
 
@@ -30,6 +30,11 @@ final class Cell
             throw new RuntimeException("cell not initialized");
         }
         $this->marked = true;
+    }
+
+    public function contains(string $value): bool
+    {
+        return $this->value === $value;
     }
 
     public function isInitialized(): bool
