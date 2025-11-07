@@ -1,14 +1,14 @@
 class Cell {
-  public readonly marked: boolean;
-  public readonly value: string;
-  constructor (value: string, marked: boolean){
+  public readonly value: string | null;
+  public marked: boolean;
+  constructor (value: string | null, marked: boolean){
     this.value = value
     this.marked = marked
   }
 }
 
 export class BingoBoard {
-  private readonly theCells: (Cell | null)[][];
+  private readonly theCells: Cell[][];
   private readonly cells: (string | null)[][];
   private readonly marked: boolean[][];
 
@@ -16,11 +16,11 @@ export class BingoBoard {
     this.cells = Array.from({ length: width }, () =>
       Array.from({ length: height }, () => null)
     );
-    this.theCells = Array.from({ length: width }, () =>
-      Array.from({ length: height }, () => null)
-    );
     this.marked = Array.from({ length: width }, () =>
       Array.from({ length: height }, () => false)
+  );
+    this.theCells = Array.from({ length: width }, () =>
+      Array.from({ length: height }, () => new Cell(null, false))
     );
   }
 
@@ -46,6 +46,7 @@ export class BingoBoard {
       throw new Error("board not initialized");
     }
     this.marked[x][y] = true;
+    this.theCells[x][y].marked = true;
   }
 
   isMarked(x: number, y: number): boolean {
