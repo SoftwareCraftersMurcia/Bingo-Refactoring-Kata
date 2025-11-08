@@ -1,4 +1,4 @@
-import { BingoBoard } from "../src/BingoBoard";
+import { BingoBoard, Coordinate } from "../src/BingoBoard";
 
 /**
  * This class is identical to BingoTestBDD but all BDD-style methods are
@@ -16,7 +16,7 @@ describe("BingoTest", () => {
   test("whenAllFieldsAreSetTheBoardIsInitialized", () => {
     const anyValue = "42";
     board = new BingoBoard(1, 1);
-    board.defineCell(0, 0, anyValue);
+    board.defineCell(new Coordinate(0, 0), anyValue);
     expect(board.isInitialized()).toBe(true);
   });
 
@@ -24,37 +24,37 @@ describe("BingoTest", () => {
     const one = "one, two, three";
     const two = "Bingo cells can contain any text";
     board = new BingoBoard(1, 2);
-    board.defineCell(0, 0, one);
-    board.defineCell(0, 1, two);
+    board.defineCell(new Coordinate(0, 0), one);
+    board.defineCell(new Coordinate(0, 1), two);
     expect(board.isInitialized()).toBe(true);
   });
 
   test("aDefinedCellCantBeRedefinedEvenIfItsTheSameValue", () => {
     const anyValue = "42";
     board = new BingoBoard(1, 1);
-    board.defineCell(0, 0, anyValue);
-    expect(() => board.defineCell(0, 0, anyValue)).toThrow("already defined");
+    board.defineCell(new Coordinate(0, 0), anyValue);
+    expect(() => board.defineCell(new Coordinate(0, 0), anyValue)).toThrow("already defined");
   });
 
   test("duplicateCellsAreNotAllowed", () => {
     const anyValue = "42";
     board = new BingoBoard(2, 2);
-    board.defineCell(0, 1, anyValue);
-    expect(() => board.defineCell(1, 0, anyValue)).toThrow(
+    board.defineCell(new Coordinate(0, 1), anyValue);
+    expect(() => board.defineCell(new Coordinate(1, 0), anyValue)).toThrow(
       `${anyValue} already present at 0,1`
     );
   });
 
   test("aNonInitializedBoardCannotBeMarked", () => {
     board = new BingoBoard(1, 1);
-    expect(() => board.markCell(0, 0)).toThrow("not initialized");
+    expect(() => board.markCell(new Coordinate(0, 0))).toThrow("not initialized");
   });
 
   test("whenAllCellGetsMarkedItIsMarked", () => {
     const anyValue = "42";
     board = new BingoBoard(1, 1);
-    board.defineCell(0, 0, anyValue);
-    board.markCell(0, 0);
-    expect(board.isMarked(0, 0)).toBe(true);
+    board.defineCell(new Coordinate(0, 0), anyValue);
+    board.markCell(new Coordinate(0, 0));
+    expect(board.isMarked(new Coordinate(0, 0))).toBe(true);
   });
 });

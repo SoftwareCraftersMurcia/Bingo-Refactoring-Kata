@@ -1,13 +1,25 @@
 class Cell {
-  public readonly value: string | null;
-  public marked: boolean;
-  constructor (value: string | null, marked: boolean){
-    this.value = value
-    this.marked = marked
+  private readonly _value: string | null;
+  private marked: boolean;
+  constructor (value: string | null){
+    this._value = value
+    this.marked = false
+  }
+
+  get value(){
+    return this._value
+  }
+
+  mark(){
+    this.marked = true
+  }
+  
+  isMarked(): boolean {
+    return this.marked
   }
 }
 
-class Coordinate {
+export class Coordinate {
   public readonly x: number;
   public readonly y: number;
 
@@ -22,11 +34,11 @@ export class BingoBoard {
 
   constructor(width: number, height: number) {
     this.theCells = Array.from({ length: width }, () =>
-      Array.from({ length: height }, () => new Cell(null, false))
+      Array.from({ length: height }, () => new Cell(null))
     );
   }
 
-  defineCellAt(position: Coordinate, value: string): void {
+  defineCell(position: Coordinate, value: string): void {
     if (this.theCells[position.x][position.y].value !== null) {
       throw new Error("cell already defined");
     }
@@ -39,25 +51,18 @@ export class BingoBoard {
       }
     }
 
-    this.theCells[position.x][position.y] = new Cell(value, false);
+    this.theCells[position.x][position.y] = new Cell(value);
   }
 
-  defineCell(x: number, y: number, value: string): void {
-    this.defineCellAt(new Coordinate(x,y), value);
-  }
-
-  markCell(x: number, y: number): void {
+  markCell(position: Coordinate): void {
     if (!this.isInitialized()) {
       throw new Error("board not initialized");
     }
-    this.theCells[x][y].marked = true;
+    this.theCells[position.x][position.y].mark();
   }
 
-  isMarked(x: number, y: number): boolean {
-    return this.isCellMarked(new Coordinate(x,y))
-  }
-  isCellMarked(position: Coordinate): boolean {
-    return this.theCells[position.x][position.y].marked;
+  isMarked(position: Coordinate): boolean {
+    return this.theCells[position.x][position.y].isMarked();
   }
 
   isInitialized(): boolean {
